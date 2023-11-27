@@ -1,3 +1,14 @@
-<div>
-  <img [src]="gifUrl" alt="pokemon-gif">
+<div class="pokemon-card card rounded-4">
+  <ng-container *ngIf="gifUrl; else staticImg">
+    <div>
+      <img [src]="gifUrl" alt="pokemon-gif">
+    </div>
+  </ng-container>
+  <ng-template #staticImg>
+    <div>
+      <img [src]="imgUrl" alt="pokemon-image">
+    </div>
+  </ng-template>
+  <h3>{{ pokemon.id }}</h3>
+  <h1>{{pokemon.name | titlecase}}</h1>
 </div>

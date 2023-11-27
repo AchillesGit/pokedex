@@ -13,7 +13,11 @@ export class PokemonDetailService {
 
   constructor() { }
 
-  // Get pokemon sprite, name, id and type
+  /**
+   * Fetches the detailed information of a specific pokemon when it is selected.
+   * @param pokemonId The id of the pokemon to fetch.
+   * @returns The detailed information of the pokemon.
+   */
   public async fetchPokemon(pokemonId: number): Promise<Pokemon> {
     const response = await fetch(this.pokemonApi + pokemonId);
 
