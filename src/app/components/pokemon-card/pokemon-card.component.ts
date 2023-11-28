@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TypeColorsService } from 'src/app/services/type-colors.service';
 
 
 @Component({
@@ -27,9 +28,17 @@ export class PokemonCardComponent implements OnInit {
    */
   public types: string[] = [];
 
+  /**
+   * The background colors for the types of the pokemon.
+   */
+  public typeColors: string[] = [];
+
+  constructor(private _typeColorService: TypeColorsService) { }
+
   ngOnInit(): void {
     this.loadTypes();
     this.loadVisuals();
+    this.getBackgroundColors();
   }
 
   /**
@@ -49,5 +58,14 @@ export class PokemonCardComponent implements OnInit {
     if (!this.gifUrl) {
       this.imgUrl = this.pokemon.sprites.front_default;
     }
+  }
+
+  /**
+   * Get the background colors for the types of the pokemon.
+   */
+  private getBackgroundColors() {
+    this.types.forEach((type) => {
+      this.typeColors.push(this._typeColorService.getTypeColor(type));
+    });
   }
 }
