@@ -2,7 +2,7 @@
   [ngStyle]="{'background': 'linear-gradient(180deg, ' + typeColors[0] + ' 0%, #FFFFFF 70%)'}">
 
   <!-- Bild Container -->
-  <div class="image-container mb-5">
+  <div class="image-container mb-4">
     <ng-container *ngIf="gifUrl; else staticImg">
       <img [src]="gifUrl" alt="pokemon-gif">
     </ng-container>
@@ -12,7 +12,7 @@
   </div>
 
   <!-- Pokémon ID -->
-  <p id="id" class="mb-1">N° {{ pokemon.id }}</p>
+  <p id="id" class="mb-1 mt-3">N° {{ pokemon.id }}</p>
 
   <!-- Pokémon Name -->
   <h3 class="mb-4">{{pokemon.name | titlecase}}</h3>
