@@ -33,6 +33,8 @@ export class PokemonCardComponent implements OnInit {
    */
   public typeColors: string[] = [];
 
+  private animationFrameId: number | null = 0;
+
   constructor(private _typeColorService: TypeColorsService) { }
 
   ngOnInit(): void {
@@ -68,4 +70,44 @@ export class PokemonCardComponent implements OnInit {
       this.typeColors.push(this._typeColorService.getTypeColor(type));
     });
   }
+
+  public onCardMouseMove(event: MouseEvent): void {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+
+    this.animationFrameId = requestAnimationFrame(() => {
+      this.applyCardTransform(event);
+    });
+  }
+
+  private applyCardTransform(event: MouseEvent): void {
+    const card = (event.target as HTMLElement)?.closest('.pokemon-card') as HTMLElement;
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const mouseX = event.clientX - centerX;
+    const mouseY = event.clientY - centerY;
+    const rotateY = (mouseX / 8) * -1;
+    const rotateX = mouseY / 7;
+
+    card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale3d(1.1, 1.1, 1.1)`;
+
+    this.animationFrameId = null;
+  }
+
+  public resetCardRotation(event: MouseEvent): void {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+
+    const card = (event.target as HTMLElement)?.closest('.pokemon-card') as HTMLElement;
+    if (!card) return;
+
+    card.style.transform = 'none';
+  }
+
 }

@@ -1,27 +1,30 @@
-<div class="pokemon-card card rounded-4"
-  [ngStyle]="{'background': 'linear-gradient(180deg, ' + typeColors[0] + ' 0%, #FFFFFF 70%)'}">
+<div class="card-container">
+  <div (mousemove)="onCardMouseMove($event)" (mouseleave)="resetCardRotation($event)"
+    class="pokemon-card card rounded-4"
+    [ngStyle]="{'background': 'linear-gradient(180deg, ' + typeColors[0] + ' 0%, #FFFFFF 70%)'}">
 
-  <!-- Bild Container -->
-  <div class="image-container mb-4">
-    <ng-container *ngIf="gifUrl; else staticImg">
-      <img [src]="gifUrl" alt="pokemon-gif">
-    </ng-container>
-    <ng-template #staticImg>
-      <img [src]="imgUrl" alt="pokemon-image">
-    </ng-template>
-  </div>
+    <!-- Bild Container -->
+    <div class="image-container mb-4">
+      <ng-container *ngIf="gifUrl; else staticImg">
+        <img [src]="gifUrl" alt="pokemon-gif">
+      </ng-container>
+      <ng-template #staticImg>
+        <img [src]="imgUrl" alt="pokemon-image">
+      </ng-template>
+    </div>
 
-  <!-- Pokémon ID -->
-  <p id="id" class="mb-1 mt-3">N° {{ pokemon.id }}</p>
+    <!-- Pokémon ID -->
+    <p id="id" class="mb-1 mt-3">N° {{ pokemon.id }}</p>
 
-  <!-- Pokémon Name -->
-  <h3 class="mb-4">{{pokemon.name | titlecase}}</h3>
+    <!-- Pokémon Name -->
+    <h3 class="mb-4">{{pokemon.name | titlecase}}</h3>
 
-  <!-- Typen Badges -->
-  <div class="types-container d-flex gap-2 mt-2">
-    <div *ngFor="let type of pokemon.types; index as i" class="type-badge rounded-pill fw-bold text-white py-1"
-      [ngStyle]="{'background-color': typeColors[i]}">
-      {{type.type.name }}
+    <!-- Typen Badges -->
+    <div class="types-container d-flex gap-2 mt-2">
+      <div *ngFor="let type of pokemon.types; index as i" class="type-badge rounded-pill fw-bold text-white py-1"
+        [ngStyle]="{'background-color': typeColors[i]}">
+        {{type.type.name }}
+      </div>
     </div>
   </div>
 </div>
